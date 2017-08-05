@@ -99,7 +99,19 @@ describe('Player', function() {
         player.bowl(5);
         expect(player.gameOver).toEqual(false);
       });
-      describe('end of game', function() {
+      describe('end of game, one or more additional strikes', function() {
+        beforeEach(function() {
+          player.bowl(10);
+          player.bowl(2);
+        });
+        it('stores three rolls in results', function() {
+          expect(player.results[9]).toEqual([10,10,2]);
+        });
+        it('game ends after third roll', function() {
+          expect(player.gameOver).toEqual(true)
+        });
+      });
+      describe('end of game, no further strikes', function() {
         beforeEach(function() {
           player.bowl(8);
           player.bowl(2);
@@ -109,6 +121,15 @@ describe('Player', function() {
         });
         it('game ends after third roll', function() {
           expect(player.gameOver).toEqual(true)
+        });
+      });
+      describe('end of game, wrongly entered final roll', function() {
+        beforeEach(function() {
+          player.bowl(8);
+          player.bowl(5);
+        });
+        it('stores three rolls in results', function() {
+          expect(player.results[9]).toEqual([10,8,2]);
         });
       });
     });
