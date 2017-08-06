@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Score Generator', function() {
   var scoreGenerator, perfectGame;
   beforeEach(function() {
@@ -8,11 +10,11 @@ describe('Score Generator', function() {
   describe('calculating score for a finished game', function() {
     describe('perfect game', function() {
       it('at end of game returns 300', function() {
-        expect(scoreGenerator.returnFinalScore(perfectGame)).toEqual(300);
+        expect(scoreGenerator.returnScore(perfectGame)).toEqual(300);
       });
     });
   });
-  describe('calculating score for single round', function() {
+  describe('calculating score for a round', function() {
     it('combination strike, strike, strike', function() {
       expect(scoreGenerator.getRoundScore(0, [[10],[10],[10]])).toEqual(30)
     });

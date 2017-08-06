@@ -1,10 +1,11 @@
-function Player() {
+function Player(scoreCard) {
   this.TOTALPINS = 10
   this.TOTALROUNDS = 10
   this.results = get2DArray(10);
   this.roundNumber = 0;
   this.rollNumber = 0;
   this.gameOver = false;
+  this.scoreCard = scoreCard
 };
 
 Player.prototype.bowl = function(pinsKnockedDown) {
@@ -15,11 +16,13 @@ Player.prototype.bowl = function(pinsKnockedDown) {
 
 Player.prototype.bowlLastRound = function(pinsKnockedDown) {
   this.addRoll(pinsKnockedDown);
+  this.scoreCard.store(pinsKnockedDown, this.roundNumber)
   if(this.isGameOver()) { this.endGame(); }
   else { this.rollNumber += 1; }
 };
 
 Player.prototype.processRoll = function(pinsKnockedDown) {
+  this.scoreCard.store(pinsKnockedDown, this.roundNumber)
   this.addRoll(pinsKnockedDown);
   if(this.isFirstRoundOver(pinsKnockedDown)) { this.endTurn() }
   else { this.rollNumber += 1; }

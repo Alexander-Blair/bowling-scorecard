@@ -13,7 +13,10 @@ ScoreGenerator.prototype.getRoundScore = function(roundNumber, scorecard) {
 };
 
 ScoreGenerator.prototype.roundTotal = function(roundNumber, scorecard) {
-  return scorecard[roundNumber].reduce(getSum);
+  if(scorecard[roundNumber].length > 0) {
+    return scorecard[roundNumber].reduce(getSum);
+  }
+  return 0;
 };
 
 ScoreGenerator.prototype.secondRoll = function(roundNumber, scorecard) {
@@ -24,7 +27,7 @@ ScoreGenerator.prototype.thirdRoll = function(roundNumber, scorecard) {
   return scorecard[roundNumber + 1][1] || scorecard[roundNumber + 2][0] || 0;
 };
 
-ScoreGenerator.prototype.returnFinalScore = function(scorecard) {
+ScoreGenerator.prototype.returnScore = function(scorecard) {
   var total = 0; generator = this;
   scorecard.forEach(function(round, roundNumber) {
     total += generator.getRoundScore(roundNumber, scorecard)

@@ -1,9 +1,10 @@
 'use strict';
 
 describe('Player', function() {
-  var player;
+  var player, scoreCard;
   beforeEach(function() {
-    player = new Player()
+    scoreCard = jasmine.createSpyObj('scoreCard', ['store'])
+    player = new Player(scoreCard)
   });
   it('created with an empty results array of arrays', function() {
     expect(player.results).toEqual(get2DArray(10));
